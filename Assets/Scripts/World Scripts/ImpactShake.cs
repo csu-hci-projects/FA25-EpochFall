@@ -6,6 +6,8 @@ public class ImpactShake : MonoBehaviour
     public float shakeMagnitude = 0.2f;
     private CameraShake cameraShake;
 
+    public int damageAmount = 1;
+
     void Start()
     {
         cameraShake = FindFirstObjectByType<CameraShake>();
@@ -25,8 +27,16 @@ public class ImpactShake : MonoBehaviour
             // destroy the player if hit
             if (collision.gameObject.CompareTag("Player"))
             {
-                Destroy(collision.gameObject);
-                Debug.Log("Player destroyed!");
+                PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+                if (playerHealth != null)
+                {
+                    playerHealth.TakeDamage(damageAmount);
+                    Debug.Log("Player took damage");
+                }
+                else
+                {
+                    Debug.LogWarning("No PlayerHealth Component Found.");
+                }
             }
 
             // destroy the falling object itself

@@ -11,6 +11,8 @@ public class PlayerAnimatorBridge : MonoBehaviour
     Collider2D col;
     SpriteRenderer sr;
 
+    [HideInInspector] public bool isDead = false;
+
     [Header("Ground Check")]
     public LayerMask groundLayer;
     public float groundCheckOffset = 0.05f;
@@ -29,6 +31,8 @@ public class PlayerAnimatorBridge : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (isDead) return; //stop animator updates immediately 
+
         // Ground check origin at the bottom of the collider
         Vector2 origin = new Vector2(col.bounds.center.x, col.bounds.min.y);
 
