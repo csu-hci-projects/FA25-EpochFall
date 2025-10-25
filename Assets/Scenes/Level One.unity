@@ -336,6 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94bb9502f1c928f42aeac28fa336ab8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimatorBridge
+  isDead: 0
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -662,7 +663,7 @@ Transform:
   m_GameObject: {fileID: 492351614}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -42.91, y: 2.1, z: 0}
+  m_LocalPosition: {x: -22.16, y: 2.1, z: 0}
   m_LocalScale: {x: 6, y: 6, z: 6}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -931,7 +932,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.291639, y: 2.947816, z: -1}
+  m_LocalPosition: {x: -6.3667097, y: 2.947816, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1414,7 +1415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ImpactShake
   shakeDuration: 0.15
   shakeMagnitude: 10
-  damageAmount: 3
+  damageAmount: 2
 --- !u!1 &746927397
 GameObject:
   m_ObjectHideFlags: 0
@@ -1443,7 +1444,7 @@ Transform:
   m_GameObject: {fileID: 746927397}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -46.2, y: 1.29, z: 0}
+  m_LocalPosition: {x: -18.1, y: 1.29, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1864,7 +1865,7 @@ Transform:
   m_GameObject: {fileID: 1369241141}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.291639, y: 2.947816, z: -1}
+  m_LocalPosition: {x: -6.3667097, y: 2.947816, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
