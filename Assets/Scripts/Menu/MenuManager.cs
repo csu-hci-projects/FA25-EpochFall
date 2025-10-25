@@ -26,24 +26,24 @@ public class NewMonoBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void StartGame()
     {
         Debug.Log("Start button pressed! (Will not start in editor)");
         // replace with actual starting scene name
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Level One");
     }
 
     public void OpenOptions()
     {
-        if (mainPanel != null) 
+        if (mainPanel != null)
         {
             mainPanel.SetActive(false);
         }
 
-        if (optionsPanel != null) 
+        if (optionsPanel != null)
         {
             optionsPanel.SetActive(true);
         }
@@ -51,12 +51,12 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
     public void CloseOptions()
     {
-        if (mainPanel != null) 
+        if (mainPanel != null)
         {
             mainPanel.SetActive(true);
         }
 
-        if (optionsPanel != null) 
+        if (optionsPanel != null)
         {
             optionsPanel.SetActive(false);
         }
