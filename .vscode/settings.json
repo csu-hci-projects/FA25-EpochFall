@@ -66,5 +66,5 @@
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj"
     },
-    "dotnet.defaultSolution": "CS462_Lab2.sln"
+    "dotnet.defaultSolution": "FA25-EpochFall.sln"
 }
