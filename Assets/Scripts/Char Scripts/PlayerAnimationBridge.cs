@@ -1,3 +1,5 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
@@ -10,6 +12,7 @@ public class PlayerAnimatorBridge : MonoBehaviour
     Rigidbody2D rb;
     Collider2D col;
     SpriteRenderer sr;
+    bool isAttacking = false;
 
     [HideInInspector] public bool isDead = false;
 
@@ -32,7 +35,15 @@ public class PlayerAnimatorBridge : MonoBehaviour
     void FixedUpdate()
     {
         if (isDead) return; //stop animator updates immediately 
-
+        AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
+        if (state.IsName("Attack"))
+        {
+            isAttacking = true;
+        }
+        else
+        {
+            isAttacking = false;
+        }
         // Ground check origin at the bottom of the collider
         Vector2 origin = new Vector2(col.bounds.center.x, col.bounds.min.y);
 
@@ -44,7 +55,6 @@ public class PlayerAnimatorBridge : MonoBehaviour
             groundCheckOffset,
             groundLayer
         );
-
         // Stable-frame smoothing
         if (groundHit)
             groundedFrames = Mathf.Min(groundedFrames + 1, stableFramesNeeded);
@@ -65,9 +75,9 @@ public class PlayerAnimatorBridge : MonoBehaviour
 
     void Update()
     {
+        if (isAttacking) return;
         if (Input.GetMouseButtonDown(0))
         {
-            anim.ResetTrigger("Attack");
             anim.SetTrigger("Attack");
         }
     }

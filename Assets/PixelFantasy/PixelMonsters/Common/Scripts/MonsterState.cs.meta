@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: abe1d4a6bbae4d738eb6e47ad56a2791
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 269333
+  packageName: Pixel Monsters Animated Boss Pack #1
+  packageVersion: 2.7
+  assetPath: Assets/PixelFantasy/PixelMonsters/Common/Scripts/MonsterState.cs
+  uploadId: 656019
