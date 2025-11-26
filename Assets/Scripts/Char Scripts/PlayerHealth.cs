@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviour
     private int currentHealth;
     private Animator anim;
     private bool isDead = false;
+    public HealthBar healthBar;
 
     [Header("Invincibility Frames")]
     public float invulnerabilityDuration = 1f;   // seconds of invulnerability after hit
@@ -21,6 +22,7 @@ public class PlayerHealth : MonoBehaviour
     void Awake()
     {
         currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
         anim = GetComponent<Animator>();
         animBridge = GetComponent<PlayerAnimatorBridge>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -32,6 +34,7 @@ public class PlayerHealth : MonoBehaviour
         if (isDead || isInvulnerable) return;
 
         currentHealth -= amount;
+        healthBar.SetHealth(currentHealth);
         anim.SetTrigger("Hurt");
 
         if (currentHealth <= 0)

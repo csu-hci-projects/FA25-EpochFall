@@ -31,9 +31,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
     public void StartGame()
     {
-        Debug.Log("Start button pressed! (Will not start in editor)");
-        // replace with actual starting scene name
-        SceneManager.LoadScene("Level One");
+        Debug.Log("Start button pressed!");
+        SceneManager.LoadScene("Level 1");
     }
 
     public void OpenOptions()
