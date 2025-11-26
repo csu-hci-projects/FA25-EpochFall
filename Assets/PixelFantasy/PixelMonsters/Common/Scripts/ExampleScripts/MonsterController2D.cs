@@ -34,7 +34,7 @@ namespace Assets.PixelFantasy.PixelMonsters.Common.Scripts.ExampleScripts
             var state = _animation.GetState();
 
             if (state == MonsterState.Die) return;
-            
+
             var velocity = _rigidbody.linearVelocity;
 
             if (Input.x == 0)
@@ -57,7 +57,7 @@ namespace Assets.PixelFantasy.PixelMonsters.Common.Scripts.ExampleScripts
                 velocity.x = Mathf.MoveTowards(velocity.x, Input.x * maxSpeed, acceleration * Time.fixedDeltaTime);
                 Turn(velocity.x);
             }
-            
+
             if (IsGrounded)
             {
                 if (!_jump)

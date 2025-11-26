@@ -91,12 +91,12 @@ namespace Assets.PixelFantasy.PixelMonsters.Common.Scripts.ExampleScripts
         {
             EffectManager.Instance.CreateSpriteEffect(_monster, "Fall");
         }
-        
+
         public void Die()
         {
             SetState(MonsterState.Die);
         }
-        
+
         public void Attack()
         {
             _monster.Animator.SetTrigger("Attack");
