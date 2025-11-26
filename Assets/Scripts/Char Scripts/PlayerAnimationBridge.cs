@@ -12,9 +12,9 @@ public class PlayerAnimatorBridge : MonoBehaviour
     Rigidbody2D rb;
     Collider2D col;
     SpriteRenderer sr;
-    bool isAttacking = false;
 
     [HideInInspector] public bool isDead = false;
+    [HideInInspector] public bool isAttacking = false;
 
     [Header("Ground Check")]
     public LayerMask groundLayer;
@@ -22,7 +22,17 @@ public class PlayerAnimatorBridge : MonoBehaviour
     public int stableFramesNeeded = 3;
     int groundedFrames = 0;
     bool isGrounded;
+
     Vector3 baseScale;
+
+    [Header("Attack Phases")]
+    public float accelPhaseDuration = 0.15f;   // how long the "startup" phase lasts
+    public float runSpeedThreshold = 2.0f;     // speed considered "running"
+
+    float accelTimer = 0f;
+    bool inAccelPhase = false;
+    bool wasMovingHoriz = false;
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -34,17 +44,43 @@ public class PlayerAnimatorBridge : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isDead) return; //stop animator updates immediately 
+        if (isDead) return; // stop animator updates if dead
+
+
         AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
-        if (state.IsName("Attack"))
+        isAttacking = state.IsTag("Attack");
+
+
+        bool movingHoriz = Mathf.Abs(rb.linearVelocity.x) > 0.01f;
+
+        // just started moving this frame -> enter accel phase
+        if (movingHoriz && !wasMovingHoriz)
         {
-            isAttacking = true;
+            accelTimer = 0f;
+            inAccelPhase = true;
         }
-        else
+
+        if (inAccelPhase)
         {
-            isAttacking = false;
+            accelTimer += Time.fixedDeltaTime;
+
+            // leave accel phase once timer expires or we stop
+            if (accelTimer >= accelPhaseDuration || !movingHoriz)
+            {
+                inAccelPhase = false;
+            }
         }
-        // Ground check origin at the bottom of the collider
+
+        // if we fully stop, reset
+        if (!movingHoriz)
+        {
+            inAccelPhase = false;
+            accelTimer = 0f;
+        }
+
+        wasMovingHoriz = movingHoriz;
+
+        // ground check
         Vector2 origin = new Vector2(col.bounds.center.x, col.bounds.min.y);
 
         bool groundHit = Physics2D.BoxCast(
@@ -55,7 +91,7 @@ public class PlayerAnimatorBridge : MonoBehaviour
             groundCheckOffset,
             groundLayer
         );
-        // Stable-frame smoothing
+
         if (groundHit)
             groundedFrames = Mathf.Min(groundedFrames + 1, stableFramesNeeded);
         else
@@ -66,7 +102,7 @@ public class PlayerAnimatorBridge : MonoBehaviour
         anim.SetBool("isGrounded", isGrounded);
         anim.SetFloat("Speed", Mathf.Abs(rb.linearVelocity.x));
 
-
+        // sprite flip
         if (rb.linearVelocity.x > 0.05f)
             transform.localScale = new Vector3(Mathf.Abs(baseScale.x), baseScale.y, baseScale.z);
         else if (rb.linearVelocity.x < -0.05f)
@@ -75,14 +111,30 @@ public class PlayerAnimatorBridge : MonoBehaviour
 
     void Update()
     {
+        if (isDead) return;
+
+        // do not start a new attack while already attacking
         if (isAttacking) return;
+
         if (Input.GetMouseButtonDown(0))
         {
-            anim.SetTrigger("Attack");
+            float speedX = Mathf.Abs(rb.linearVelocity.x);
+
+            bool runningEnough = speedX > runSpeedThreshold && !inAccelPhase;
+
+            if (runningEnough)
+            {
+                // already fully running -> dash attack
+                anim.SetTrigger("DashAttack");
+            }
+            else
+            {
+                // standing still or in early accel -> normal standing attack
+                anim.SetTrigger("Attack");
+            }
         }
     }
 
-    // Draw ground check box for debugging
     void OnDrawGizmos()
     {
         if (col == null) return;
