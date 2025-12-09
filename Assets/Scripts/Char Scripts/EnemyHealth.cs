@@ -7,6 +7,7 @@ public class EnemyHealth : MonoBehaviour
     public int maxHealth = 3;
     private int currentHealth;
     private bool isDead = false;
+    public HealthBar healthBar;
 
     private MonsterAnimation monsterAnim;
     private Rigidbody2D rb;
@@ -15,6 +16,7 @@ public class EnemyHealth : MonoBehaviour
     private void Awake()
     {
         currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
         monsterAnim = GetComponent<MonsterAnimation>();
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
@@ -25,6 +27,7 @@ public class EnemyHealth : MonoBehaviour
         if (isDead) return;
 
         currentHealth -= amount;
+        healthBar.SetHealth(currentHealth);
         Debug.Log($"{gameObject.name} took {amount} damage. HP: {currentHealth}");
 
         // play hit reaction 
