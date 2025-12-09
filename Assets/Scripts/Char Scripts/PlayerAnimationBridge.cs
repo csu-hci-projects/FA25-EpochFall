@@ -45,8 +45,6 @@ public class PlayerAnimatorBridge : MonoBehaviour
     void FixedUpdate()
     {
         if (isDead) return; // stop animator updates if dead
-
-
         AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
         isAttacking = state.IsTag("Attack");
 
@@ -80,7 +78,6 @@ public class PlayerAnimatorBridge : MonoBehaviour
 
         wasMovingHoriz = movingHoriz;
 
-        // ground check
         Vector2 origin = new Vector2(col.bounds.center.x, col.bounds.min.y);
 
         bool groundHit = Physics2D.BoxCast(
@@ -102,7 +99,6 @@ public class PlayerAnimatorBridge : MonoBehaviour
         anim.SetBool("isGrounded", isGrounded);
         anim.SetFloat("Speed", Mathf.Abs(rb.linearVelocity.x));
 
-        // sprite flip
         if (rb.linearVelocity.x > 0.05f)
             transform.localScale = new Vector3(Mathf.Abs(baseScale.x), baseScale.y, baseScale.z);
         else if (rb.linearVelocity.x < -0.05f)
