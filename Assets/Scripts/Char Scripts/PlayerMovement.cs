@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // 🛑 1. If player is attacking, completely stop horizontal movement
+        // If player is attacking, completely stop horizontal movement
         if (animBridge != null && animBridge.isAttacking)
         {
             // lock x movement, keep y for gravity

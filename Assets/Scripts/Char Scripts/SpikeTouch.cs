@@ -31,7 +31,7 @@ public class SpikeTouch : MonoBehaviour
         bool isSpike = false;
 
         // 1) common: objects explicitly tagged as Spike
-        if (other.CompareTag("Spike"))
+        if (other.CompareTag("spike"))
             isSpike = true;
 
         // 2) world-side SpikeDamage component (use string lookup to avoid compile-order/type reference issues)
